@@ -1,0 +1,12 @@
+# 通過根目錄去激活配置檔案,這裏一般都通過明文去激活配置檔
+# 如果是上綫測試環境or正式環境,可以通過參數去做調整
+spring:
+  profiles:
+    active: dev,common
+  mvc:
+    pathmatch: # 處理Swagger的路徑規則
+      matching-strategy: ant_path_matcher
+server:
+  port: 8080
+  servlet:
+    context-path: /spring-boot-template

@@ -1,0 +1,22 @@
+# 該配置檔即應用生產/正式發環境下都應該獲取的參數
+log:
+  file: # Log 輸出目錄
+    path: /var/logs
+    max: # 最大保存天數
+      history: 5
+      # Log單個文件最大大小
+      size: 100
+  charset: ## console 的字符編碼
+    console: UTF-8
+    ## file 的字符編碼
+    file: utf-8
+
+datasource:
+  mssql:
+    driver-class-name: org.mariadb.jdbc.Driver
+    jdbc-url: jdbc:mariadb://10.10.0.86:3306/quartz?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    username: root
+    password: 74e4ff9494674aeaa99e554ff2082961
+    idle-timeout: 1000
+    connection-timeout: 5000
+    connection-test-query: SELECT 1

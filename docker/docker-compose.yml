@@ -1,0 +1,10 @@
+version: '3.1'
+services:
+  adidas:
+    container_name: template
+    image: spring-boot-template:latest
+    restart: always
+    ports:
+      - "8090:8090"
+    volumes:
+      - /var/log/SpringBootTemplate:/var/logs/

@@ -1,0 +1,16 @@
+FROM openjdk:8-jdk-alpine
+
+MAINTAINER RFBoot 0267/Paul
+
+EXPOSE 8080/tcp
+
+RUN ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime \
+    && echo 'Asia/Taipei' > /etc/timezone \
+    && rm -fr /var/cache/apk/* ##安装相关的依赖包&設定時區
+
+## Log 路徑
+RUN mkdir -p /var/logs
+
+COPY ../build/libs/*.jar /data/app.jar
+
+ENTRYPOINT ["java","-Dfile.encoding=UTF-8","-Dspring.profiles.active=prod,common","-jar","/data/app.jar"]

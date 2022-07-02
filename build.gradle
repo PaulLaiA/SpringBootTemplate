@@ -1,0 +1,50 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.7'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'org.dpaul.template'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // 本地Jar包
+    implementation fileTree(dir: "libs", includes: ["*.jar"])
+
+    // SpringBoot
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-configuration-processor'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
+    implementation 'com.github.xiaoymin:knife4j-spring-boot-starter:2.0.9'
+    // DB 連綫
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.4'
+    // MapStruct 转换Bean
+    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+    // Lombok
+    implementation 'org.projectlombok:lombok'
+
+    annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+    // Lombok + MapStruct 整合包
+    annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+    testImplementation 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.mapstruct:mapstruct:1.4.2.Final'
+    testImplementation 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+
+    testAnnotationProcessor 'org.projectlombok:lombok'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
