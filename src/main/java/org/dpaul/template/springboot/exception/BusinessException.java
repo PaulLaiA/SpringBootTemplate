@@ -1,8 +1,6 @@
 package org.dpaul.template.springboot.exception;
 
 
-import org.dpaul.template.springboot.common.ErrorCode;
-
 public class BusinessException extends GlobalException {
 
 

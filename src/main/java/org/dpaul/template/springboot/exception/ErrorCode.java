@@ -1,8 +1,9 @@
-package org.dpaul.template.springboot.common;
+package org.dpaul.template.springboot.exception;
 
 public enum ErrorCode {
 
 	SUCCESS(0, "OK", ""),
+	UNPREDICTABLE(90000, "Unpredictable Error", "未經定義的錯誤"),
 	;
 
 	private final int code;

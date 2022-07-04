@@ -1,7 +1,6 @@
 package org.dpaul.template.springboot.exception;
 
 import lombok.Getter;
-import org.dpaul.template.springboot.common.ErrorCode;
 
 @Getter
 public class GlobalException extends RuntimeException {
@@ -27,5 +26,9 @@ public class GlobalException extends RuntimeException {
 		this.description = description;
 	}
 
-
+	public GlobalException(Throwable e, ErrorCode errorCode) {
+		super(e.getMessage());
+		this.code = errorCode.getCode();
+		this.description = errorCode.getDescription();
+	}
 }
