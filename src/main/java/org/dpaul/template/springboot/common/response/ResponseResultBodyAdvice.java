@@ -1,15 +1,12 @@
 package org.dpaul.template.springboot.common.response;
 
 import lombok.extern.slf4j.Slf4j;
-import org.dpaul.template.springboot.common.ErrorCode;
-import org.dpaul.template.springboot.exception.BusinessException;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
@@ -61,19 +58,5 @@ public class ResponseResultBodyAdvice implements ResponseBodyAdvice<Object> {
 			return body;
 		}
 		return Result.success(body);
-	}
-
-	@ExceptionHandler(BusinessException.class)
-	public Result<Void> businessExceptionHandler(BusinessException e) {
-		log.error("businessException: " + e.getMessage(), e);
-		return e.getCode() == ErrorCode.SUCCESS.getCode() ?
-				Result.success(ResultStatus.SUCCESS, null) :
-				Result.failure(ResultStatus.INTERNAL_SERVER_ERROR);
-	}
-
-	@ExceptionHandler(RuntimeException.class)
-	public Result<Void> runtimeExceptionHandler(RuntimeException e) {
-		log.error("runtimeExceptionHandler: " + e.getMessage(), e);
-		return Result.failure(ResultStatus.INTERNAL_SERVER_ERROR);
 	}
 }
