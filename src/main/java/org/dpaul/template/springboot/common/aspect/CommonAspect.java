@@ -5,6 +5,8 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.dpaul.template.springboot.exception.ErrorCode;
+import org.dpaul.template.springboot.exception.GlobalException;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
@@ -16,11 +18,11 @@ public class CommonAspect {
 	/**
 	 * 匹配所有Job
 	 */
-	@Pointcut("execution(* org.dpaul.template.springboot.*.*(..))")
-	public void JobPointcut() {
+	@Pointcut("execution(* org.dpaul.template.springboot..*.*(..))")
+	public void CommonAspectPointcut() {
 	}
 
-	@Around("JobPointcut()")
+	@Around("CommonAspectPointcut()")
 	public Object aroundPrintLog(ProceedingJoinPoint point) throws Throwable {
 		Object rtValue;
 		final String funName = point.getSignature().getName();
@@ -32,8 +34,13 @@ public class CommonAspect {
 			rtValue = point.proceed(args);
 		} catch (Throwable e) {
 			log.info("執行方法:{}, 異常:{}", funName, e.getMessage());
-			log.error(e.getMessage(), e);
-			throw e;
+			if (e instanceof GlobalException) {
+				log.error(e.getLocalizedMessage(), e);
+				throw e;
+			} else {
+				log.warn(e.getLocalizedMessage(), e);
+				throw new GlobalException(e, ErrorCode.UNPREDICTABLE);
+			}
 		} finally {
 			stopWatch.stop();
 			log.info("執行方法:{}, {}", funName, stopWatch.getLastTaskTimeMillis());
