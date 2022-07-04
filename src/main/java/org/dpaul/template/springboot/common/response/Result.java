@@ -1,5 +1,7 @@
 package org.dpaul.template.springboot.common.response;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -10,18 +12,22 @@ import lombok.ToString;
  */
 @Getter
 @ToString
+@ApiModel
 public class Result<T> {
 	/**
 	 * 业务错误码
 	 */
+	@ApiModelProperty(value = "狀態碼", required = true)
 	private final Integer code;
 	/**
 	 * 信息描述
 	 */
+	@ApiModelProperty(value = "描述信息", required = true)
 	private final String message;
 	/**
 	 * 返回参数
 	 */
+	@ApiModelProperty(value = "資料")
 	private final T data;
 
 	private Result(ResultStatus resultStatus, T data) {
