@@ -1,6 +1,8 @@
-package org.dpaul.template.springboot.common.response;
+package org.dpaul.template.springboot.common.response.advice;
 
 import lombok.extern.slf4j.Slf4j;
+import org.dpaul.template.springboot.common.response.Result;
+import org.dpaul.template.springboot.common.response.annotation.ResponseResultBody;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.http.MediaType;
@@ -17,7 +19,7 @@ import java.lang.annotation.Annotation;
  */
 @Slf4j
 @RestControllerAdvice
-public class ResponseResultBodyAdvice implements ResponseBodyAdvice<Object> {
+public class ResultBodyAdvice implements ResponseBodyAdvice<Object> {
 
 	private static final Class<? extends Annotation> ANNOTATION_TYPE = ResponseResultBody.class;
 

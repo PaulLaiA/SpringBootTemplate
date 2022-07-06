@@ -1,7 +1,8 @@
-package org.dpaul.template.springboot.api.response;
+package org.dpaul.template.springboot.common.response.advice;
 
 import lombok.extern.slf4j.Slf4j;
 import org.dpaul.template.springboot.common.response.Result;
+import org.dpaul.template.springboot.common.response.annotation.ExternalApi;
 import org.dpaul.template.springboot.components.RSAComponet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
@@ -20,7 +21,7 @@ import java.lang.annotation.Annotation;
  */
 @Slf4j
 @RestControllerAdvice
-public class ResponseEncryptAdvice implements ResponseBodyAdvice<Object> {
+public class EncryptAdvice implements ResponseBodyAdvice<Object> {
 	private static final Class<? extends Annotation> ANNOTATION_TYPE = ExternalApi.class;
 	@Autowired
 	private RSAComponet rsa;
@@ -35,8 +36,8 @@ public class ResponseEncryptAdvice implements ResponseBodyAdvice<Object> {
 	 */
 	@Override
 	public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-		return AnnotatedElementUtils.hasAnnotation(returnType.getContainingClass(),
-		                                           ANNOTATION_TYPE) || returnType.hasMethodAnnotation(ANNOTATION_TYPE);
+		return AnnotatedElementUtils.hasAnnotation(returnType.getContainingClass(), ANNOTATION_TYPE)
+		       || returnType.hasMethodAnnotation(ANNOTATION_TYPE);
 	}
 
 	/**
@@ -60,10 +61,10 @@ public class ResponseEncryptAdvice implements ResponseBodyAdvice<Object> {
 		// 防止重复包裹的问题出现
 		if (body instanceof Result) {
 			final Result<Object> result = (Result<Object>) body;
-			result.setData(rsa.encode(result.getData()));
+			result.setData(rsa.encrypt(result.getData()));
 			return result;
 		} else {
-			return Result.success(rsa.encode(body));
+			return Result.success(rsa.encrypt(body));
 		}
 	}
 }

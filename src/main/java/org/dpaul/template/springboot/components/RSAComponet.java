@@ -18,7 +18,7 @@ import java.nio.file.Files;
 
 @Component
 @Scope
-public final class RSAComponet {
+public class RSAComponet {
 
 	private final RSA rsa = new RSA();
 	@Value("classpath:REAKeys/N.txt")
@@ -41,7 +41,7 @@ public final class RSAComponet {
 	 *
 	 * @return 加密字符
 	 */
-	public String encode(Object obj) {
+	public String encrypt(Object obj) {
 		String str = JSONUtil.toJsonStr(obj);
 		final byte[] bytes = StrUtil.bytes(str, StandardCharsets.UTF_8);
 		byte[] encrypt = rsa.encrypt(bytes, KeyType.PrivateKey);
@@ -55,7 +55,7 @@ public final class RSAComponet {
 	 *
 	 * @return 解密字符
 	 */
-	public String dencode(String str) {
+	public String decrypt(String str) {
 		byte[] bytes = HexUtil.decodeHex(str);
 		byte[] decrypt = rsa.decrypt(bytes, KeyType.PublicKey);
 		return StrUtil.str(decrypt, StandardCharsets.UTF_8);
