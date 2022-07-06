@@ -21,10 +21,10 @@ import javax.sql.DataSource;
 		basePackages = {"org.dpaul.template.springboot.mapper"},
 		sqlSessionFactoryRef = "sqlSessionFactory"
 )
-public class MSSqlConfig {
+public class MariaConfig {
 
 	@Profile({"dev", "prod"})
-	@ConfigurationProperties("datasource.mssql")
+	@ConfigurationProperties("datasource.maria")
 	@Bean
 	public HikariConfig hikariConfig() {
 		return new HikariConfig();

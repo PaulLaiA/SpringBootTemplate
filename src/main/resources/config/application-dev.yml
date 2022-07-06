@@ -11,9 +11,9 @@ log:
 
 
 datasource:
-  mssql:
+  maria:
     driver-class-name: org.mariadb.jdbc.Driver
-    jdbc-url: jdbc:mariadb://10.10.0.86:3306/quartz?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    jdbc-url: jdbc:mariadb://192.168.1.110:3306/SpringBootTemplate?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
     username: root
     password: 74e4ff9494674aeaa99e554ff2082961
     idle-timeout: 1000
