@@ -18,7 +18,7 @@ public class CommonAspect {
 	/**
 	 * 匹配所有Job
 	 */
-	@Pointcut("execution(* org.dpaul.template.springboot..*.*(..))")
+	@Pointcut("execution(* org.dpaul.template.springboot.control..*.*(..))")
 	public void CommonAspectPointcut() {
 	}
 
