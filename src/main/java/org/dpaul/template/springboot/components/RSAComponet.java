@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 
 @Component
 @Scope
@@ -59,6 +61,14 @@ public class RSAComponet {
 		byte[] bytes = HexUtil.decodeHex(str);
 		byte[] decrypt = rsa.decrypt(bytes, KeyType.PublicKey);
 		return StrUtil.str(decrypt, StandardCharsets.UTF_8);
+	}
+
+	public PublicKey getPublicKey() {
+		return rsa.getPublicKey();
+	}
+
+	public PrivateKey getPrivateKey() {
+		return rsa.getPrivateKey();
 	}
 
 	private BigInteger Str2BigInt(Resource resource) {
