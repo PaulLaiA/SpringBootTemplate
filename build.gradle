@@ -18,9 +18,12 @@ dependencies {
 
     // SpringBoot
     implementation 'org.springframework.boot:spring-boot-starter'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
     implementation 'org.springframework.boot:spring-boot-configuration-processor'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'org.springframework.boot:spring-boot-starter-undertow'
 
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
     implementation 'com.github.xiaoymin:knife4j-spring-boot-starter:2.0.9'
@@ -45,6 +48,11 @@ dependencies {
     testImplementation 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 
     testAnnotationProcessor 'org.projectlombok:lombok'
+}
+
+configurations {
+    compile.exclude module: 'spring-boot-starter-tomcat'
+    compile.exclude group: 'org.apache.tomcat'
 }
 
 tasks.named('test') {
